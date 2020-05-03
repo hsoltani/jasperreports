@@ -14,13 +14,13 @@ questions:
   group: "Container Images"
   subquestions:
   - variable: image.repository
-    default: "bitnami/joomla"
-    description: "joomla image name"
+    default: "bitnami/jasperreports"
+    description: "JasperReports image name"
     type: string
-    label: Joomla Image Name
+    label: JasperReports Image Name
   - variable: image.tag
-    default: "3.9.15-debian-10-r10"
-    description: "Joomla image tag"
+    default: "7.2.0-debian-10-r72"
+    description: "JasperReports image tag"
     type: string
     label: Image Tag
   - variable: mariadb.image.repository
@@ -33,26 +33,26 @@ questions:
     description: "MariaDB image tag"
     type: string
     label: MariaDB Image Tag
-- variable: joomlaUsername
+- variable: jasperreportsUsername
   default: "user"
   description: "User of the application"
   type: string
   required: true
-  label: Joomla Usernname
-  group: "Joomla Settings"
-- variable: joomlaPassword
+  label: JasperReports Usernname
+  group: "JasperReports Settings"
+- variable: jasperreportsPassword
   default: ""
   description: "password will be auto-generated if not specified"
   type: password
-  label: Joomla Password
-  group: "Joomla Settings"
-- variable: joomlaEmail
+  label: JasperReports Password
+  group: "JasperReports Settings"
+- variable: jasperreportsEmail
   default: "user@example.com"
   description: "Admin email"
   type: string
   required: true
-  label: Joomla Admin Email
-  group: "Joomla Settings"
+  label: JasperReports Admin Email
+  group: "JasperReports Settings"
 - variable: mariadb.enabled
   default: true
   description: "Deploy a database server as part of this deployment, or set to false and configure an external database connection."
@@ -63,12 +63,12 @@ questions:
   group: "Database Settings"
   subquestions:
   - variable: mariadb.db.name
-    default: "joomla"
+    default: "bitnami_jasperreports"
     description: "Database name to create"
     type: string
     label: MariaDB Database
   - variable: mariadb.db.user
-    default: "joomla"
+    default: "bn_jasperreports"
     description: "Database user to create"
     type: string
     label: MariaDB User
@@ -139,28 +139,28 @@ questions:
     label: Default StorageClass for MariaDB
 - variable: persistence.enabled
   default: false
-  description: "Enable persistent volume for Joomla"
+  description: "Enable persistent volume for JasperReports"
   type: boolean
   required: true
-  label: Joomla Persistent Volume Enabled
+  label: JasperReports Persistent Volume Enabled
   show_subquestion_if: true
-  group: "Joomla Settings"
+  group: "JasperReports Settings"
   subquestions:
   - variable: persistence.size
     default: "10Gi"
-    description: "Joomla Persistent Volume Size"
+    description: "JasperReports Persistent Volume Size"
     type: string
-    label: Joomla Volume Size
+    label: JasperReports Volume Size
   - variable: persistence.storageClass
     default: ""
     description: "If undefined or null, uses the default StorageClass. Default to null"
     type: storageclass
-    label: Default StorageClass for Joomla
+    label: Default StorageClass for JasperReports
   - variable: persistence.existingClaim
     default: ""
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
-    label: Existing Persistent Volume Claim for Joomla
+    label: Existing Persistent Volume Claim for JasperReports
 - variable: ingress.enabled
   default: true
   description: "Expose app using Layer 7 Load Balancer - ingress"
@@ -169,15 +169,15 @@ questions:
   show_subquestion_if: true
   group: "Services and Load Balancing"
   subquestions:
-  - variable: ingress.hostname
+  - variable: ingress.hosts[0].name
     default: "xip.io"
-    description: "Hostname to your Joomla installation"
+    description: "Hostname to your JasperReports installation"
     type: hostname
     required: true
     label: Hostname
 - variable: service.type
   default: "NodePort"
-  description: "Joomla Service type"
+  description: "JasperReports Service type"
   type: enum
   show_if: "ingress.enabled=false"
   options:
@@ -185,7 +185,7 @@ questions:
   - "NodePort"
   - "LoadBalancer"
   required: true
-  label: Joomla Service Type
+  label: JasperReports Service Type
   show_subquestion_if: "NodePort"
   group: "Services and Load Balancing"
   subquestions:
